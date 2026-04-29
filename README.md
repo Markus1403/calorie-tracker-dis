@@ -9,20 +9,20 @@ It is expected that you already have postgreSQL installed on your device.
 # Setup virtual environment 
 
 ### Start by installing your virtual environment:
+``$ python -m venv .venv``
 
-´´´ $ python -m venv .venv´´´
 
 ### Nextup enter your virtual environment:
 
 #### For windows in CMD:
-´´´ $ .venv\Scripts\activate´´´
+``$ .venv\Scripts\activate``
 
 #### macOS and Linux (the surperior choice):
-´´´ $ source .venv/bin/activate´´´
+``$ source .venv/bin/activate``
 
 ### Download relevant libraries: 
 
-´´´ $ pip install -r requirements.txt´´´
+``$ pip install -r requirements.txt``
 
 
 
