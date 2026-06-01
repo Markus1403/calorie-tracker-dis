@@ -10,6 +10,12 @@ from core.models import Food, User
 main_bp = Blueprint('main_bp', __name__)
 
 
+def insert_standard_foods(input_user_id):
+    banana = Food(user_id=input_user_id, name='Banana', carbs=27.0, fat=0.30, protein=1.30, calories=105)
+    db.session.add(banana)
+    db.session.commit()
+
+
 def login_required(view):
     """Redirect to the login page if no user is in the session."""
     @wraps(view)
@@ -38,6 +44,7 @@ def register():
             user = User(username=input_username, password=password)
             db.session.add(user)
             db.session.commit()
+            insert_standard_foods(user.id)
             return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')
