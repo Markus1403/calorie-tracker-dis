@@ -1,21 +1,20 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-#from models import init_db
-from datetime import date, timedelta
+from flask import Flask
 from dotenv import load_dotenv
-import os
-
-
-
 load_dotenv()
-
-
+                                        
+from config import Config
+from core.extensions import db, migrate
+                                        
+                                        
 def create_app():
     app = Flask(__name__)
-    app.secret_key = os.environ.get("SECRET_KEY")
-    
+    app.config.from_object(Config)
+                                        
+    db.init_app(app)
+    migrate.init_app(app, db)
+                                        
+    import core.models
+                                        
     from blueprints import main_bp
-
     app.register_blueprint(main_bp)
     return app
-    
-    

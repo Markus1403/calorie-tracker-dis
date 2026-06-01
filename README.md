@@ -24,5 +24,15 @@ It is expected that you already have postgreSQL installed on your device.
 
 ``$ pip install -r requirements.txt``
 
+### Setup your database
 
+You need to setup a databse for the website to connect to. This assumes youre using linux (Again the surperior choice.)
+Start by creating a login role:
+
+``$ sudo -u postgres psql -c "CREATE ROLE calorie_user WITH LOGIN PASSWORD 'YOURPASSWORD HERE';"``
+
+After you've set up your user, create database owned by that user:
+
+``$ sudo -u postgres psql -c "CREATE DATABASE calorie_tracker OWNER calorie_user;"
+``
 
