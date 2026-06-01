@@ -5,7 +5,7 @@ load_dotenv()
 from config import Config
 from core.extensions import db, migrate
                                         
-                                        
+# initialize flask app                                     
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
