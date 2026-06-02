@@ -7,16 +7,12 @@ from flask import (
 from core.extensions import db
 from sqlalchemy import text
 from core.models import Food, User, FoodLog, CalorieProfile
-from core.helpers import insert_standard_foods
+from core.helpers import insert_standard_foods, insert_standard_profile
 
 main_bp = Blueprint('main_bp', __name__)
 
 
 
-def inser_standard_profile(input_user_id):
-    standard_profile = CalorieProfile(user_id=input_user_id, name="Standard Calorie Profile", carbs=400, fat=67.0, protein=200.0, calories=3083.1)
-    db.session.add(standard_profile)
-    db.session.commit()
 
 
 
@@ -48,7 +44,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             insert_standard_foods(user.id)
-            inser_standard_profile(user.id)
+            insert_standard_profile(user.id)
             return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')

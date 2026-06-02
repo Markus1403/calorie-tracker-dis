@@ -186,3 +186,9 @@ def insert_standard_foods(input_user_id):
 
 
     db.session.commit()
+
+
+def insert_standard_profile(input_user_id):
+    standard_profile = CalorieProfile(user_id=input_user_id, name="Standard Calorie Profile", carbs=400, fat=67.0, protein=200.0, calories=3083.1)
+    db.session.add(standard_profile)
+    db.session.commit()
