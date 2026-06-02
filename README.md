@@ -26,7 +26,7 @@ It is expected that you already have postgreSQL installed on your device.
 
 ### Setup your database
 
-You need to setup a databse for the website to connect to. This assumes youre using linux (Again the surperior choice.)
+You need to setup a databse for the website to connect to. This assumes youre using linux (Again the superior choice.)
 Start by creating a login role:
 
 ``$ sudo -u postgres psql -c "CREATE ROLE calorie_user WITH LOGIN PASSWORD 'YOURPASSWORDHERE';"``
