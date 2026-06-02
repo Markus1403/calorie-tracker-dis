@@ -14,8 +14,15 @@ profiles_bp = Blueprint('profiles_bp', __name__)
 @profiles_bp.route('/manage_profiles', methods=['GET','POST'])
 def manage_profiles():
 
+    profiles = db.session.execute(
+        db.select(CalorieProfile).filter_by(user_id=session['user_id'])
+    ).scalars().all()
 
-    return render_template('manage_profiles.html')
+
+
+
+
+    return render_template('manage_profiles.html', calorie_profiles=profiles)
 
 
 

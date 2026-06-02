@@ -11,34 +11,6 @@
   <body>
     <main>
         <h1>Welcome to My Website</h1>
-        <p><a href="{{ url_for('main_bp.logout') }}">Log out</a></p>
-
-        <table>
-          <thead>
-              <h3>Your food and macros (pr. 100 grams)</h3>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for food in foods %}
-              <tr>
-                <td>{{ food.name }}</td>
-                <td>{{ food.calories }}</td>
-                <td>{{ food.carbs }}</td>
-                <td>{{ food.fat }}</td>
-                <td>{{ food.protein }}</td>
-              </tr>
-            {% else %}
-              <tr><td colspan="5">No foods yet.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
         <table>
           <thead>
               <h3>Your Calorie Profiles</h3>
@@ -62,7 +34,6 @@
             {% else %}
               <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
             {% endfor %}
-            <tr><td> Manage Profiles</td></tr>
 
 
             <div class="card">
