@@ -1,0 +1,347 @@
+:root {
+    --bg: #F5EFE3;
+    --surface: #FBF7EE;
+    --surface-alt: #EFE7D6;
+    --border: #D9CDB6;
+    --text: #3D2F22;
+    --muted: #7A6A57;
+    --primary: #6B7F5C;
+    --primary-hover: #566B49;
+    --primary-fg: #FBF7EE;
+    --danger: #A55D4A;
+    --danger-hover: #874734;
+    --highlight: #C9A66B;
+    --radius: 10px;
+    --shadow: 0 1px 2px rgba(61, 47, 34, 0.06), 0 4px 12px rgba(61, 47, 34, 0.06);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 20px 16px 64px;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
+h1 { font-size: 1.6rem; margin: 1.2rem 0 0.6rem; }
+h2 { font-size: 1.2rem; margin: 1.4rem 0 0.6rem; }
+h3 { font-size: 1.0rem; margin: 1.0rem 0 0.4rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+p { margin: 0.3rem 0; }
+
+a { color: var(--primary-hover); }
+
+/* ---------- Card ---------- */
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 12px 0;
+    box-shadow: var(--shadow);
+}
+
+.card > h2:first-child,
+.card > h1:first-child { margin-top: 0; }
+
+/* ---------- Forms ---------- */
+form { margin: 0; }
+
+input, select, button, textarea {
+    font: inherit;
+    color: var(--text);
+}
+
+input[type="text"], input[type="number"], input:not([type]), select, textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 11px;
+    margin: 4px 4px 4px 0;
+    min-width: 0;
+    max-width: 100%;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(107, 127, 92, 0.18);
+}
+
+input::placeholder { color: var(--muted); opacity: 0.7; }
+
+/* ---------- Buttons ---------- */
+button, .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--primary-fg);
+    border: 1px solid transparent;
+    border-radius: 8px;
+    padding: 9px 16px;
+    margin: 4px 4px 4px 0;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.05s;
+}
+
+button:hover, .btn:hover { background: var(--primary-hover); }
+button:active, .btn:active { transform: translateY(1px); }
+
+button.btn-secondary, .btn-secondary {
+    background: var(--surface-alt);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+button.btn-secondary:hover, .btn-secondary:hover { background: var(--border); }
+
+button.btn-danger, .btn-danger {
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+}
+button.btn-danger:hover, .btn-danger:hover {
+    background: var(--danger);
+    color: var(--primary-fg);
+}
+
+/* ---------- Layout helpers ---------- */
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.column {
+    flex: 1 1 240px;
+    min-width: 0;
+}
+
+.inline-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.spread {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.muted { color: var(--muted); }
+
+/* ---------- Date navigation ---------- */
+.date-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 12px;
+    box-shadow: var(--shadow);
+}
+.date-nav .current-date {
+    font-weight: 600;
+    color: var(--text);
+}
+
+/* ---------- Stats grid (goals, totals) ---------- */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+.stat {
+    background: var(--surface-alt);
+    border-radius: 8px;
+    padding: 10px 12px;
+}
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.stat-value {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text);
+}
+.stat-value.accent { color: var(--primary-hover); }
+.stat-value.warn { color: var(--danger); }
+
+/* ---------- Entry list ---------- */
+.entries {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface-alt);
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 6px 0;
+}
+.entry-info { flex: 1 1 auto; min-width: 0; }
+.entry-name { font-weight: 600; }
+.entry-macros { font-size: 0.85rem; color: var(--muted); }
+
+.meal-block { margin-top: 14px; }
+.meal-block h3 { margin-bottom: 6px; }
+.meal-block .empty {
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-style: italic;
+    padding: 4px 0 0;
+}
+
+/* ---------- Profile / food list ---------- */
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    background: var(--surface-alt);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 6px 0;
+}
+.item-name { font-weight: 600; }
+.item-meta { font-size: 0.85rem; color: var(--muted); }
+.item-actions { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.item-actions form { display: inline-flex; }
+
+/* ---------- Flash messages ---------- */
+.flashes { margin: 12px 0; }
+.flash {
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+.flash-warning { border-color: var(--highlight); background: #FAF1DC; }
+.flash-error   { border-color: var(--danger); background: #F4DAD3; color: var(--danger-hover); }
+
+/* ---------- Progress bars ---------- */
+.progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 6px;
+}
+.progress-row {
+    background: var(--surface-alt);
+    border-radius: 10px;
+    padding: 10px 12px 8px;
+}
+.progress-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+.progress-label {
+    font-weight: 600;
+    color: var(--text);
+}
+.progress-numbers {
+    font-variant-numeric: tabular-nums;
+}
+.progress-bar {
+    height: 8px;
+    background: var(--bg);
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 6px 0 4px;
+    border: 1px solid var(--border);
+}
+.progress-fill {
+    height: 100%;
+    background: var(--primary);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+.progress-row.over .progress-fill { background: var(--danger); }
+.progress-foot { font-size: 0.8rem; }
+.progress-warn { color: var(--danger); font-weight: 600; }
+
+/* ---------- Inline edit toggle ---------- */
+.item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+}
+.item .edit-form {
+    display: none;
+    width: 100%;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px dashed var(--border);
+}
+.item.editing .edit-form { display: flex; }
+.item .edit-form input { flex: 1 1 90px; }
+
+/* ---------- Chart ---------- */
+#weight-chart {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px;
+    box-shadow: var(--shadow);
+    margin-top: 8px;
+    height: 320px;
+    position: relative;
+}
+#weight-chart canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+@media (max-width: 480px) {
+    #weight-chart {
+        height: 260px;
+        padding: 8px;
+    }
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 480px) {
+    .container { padding: 14px 12px 64px; }
+    h1 { font-size: 1.4rem; }
+    .stat-value { font-size: 1rem; }
+    button, .btn { padding: 10px 14px; }
+}
