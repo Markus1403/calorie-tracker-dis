@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}CalTrack{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block head_extra %}{% endblock %}
+</head>
+<body>
+    <main class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flashes">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <script>
+        (function () {
+            const key = 'caltrack_scroll_' + location.pathname;
+            document.addEventListener('submit', () => {
+                sessionStorage.setItem(key, String(window.scrollY));
+            });
+            const saved = sessionStorage.getItem(key);
+            if (saved !== null) {
+                sessionStorage.removeItem(key);
+                if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+                window.addEventListener('DOMContentLoaded', () => {
+                    requestAnimationFrame(() => window.scrollTo(0, parseFloat(saved)));
+                });
+            }
+        })();
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>
