@@ -1,39 +1,52 @@
 {% extends "base.html" %}
 
+{% block title %}Manage Foods{% endblock %}
+
 {% block content %}
-    <main>
-      <h1>Manage Foods</h1>
 
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Calories</th>
-            <th>Carbs</th>
-            <th>Fat</th>
-            <th>Protein</th>
-          </tr>
-        </thead>
+<div class="spread">
+    <h1 style="margin:0">Manage Foods</h1>
+    <form action="{{ url_for('main_bp.index') }}">
+        <button type="submit" class="btn-secondary">← Back</button>
+    </form>
+</div>
 
-        <tbody>
-          {% for food in foods %}
-            <tr>
-              <td>{{ food.name }}</td>
-              <td>{{ food.calories }}</td>
-              <td>{{ food.carbs }}</td>
-              <td>{{ food.fat }}</td>
-              <td>{{ food.protein }}</td>
-            </tr>
-          {% else %}
-            <tr>
-              <td colspan="5">No foods yet.</td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+<div class="card">
+    {% if foods %}
+        <ul class="item-list">
+        {% for entry in foods %}
+            <li class="item">
+                <div class="item-row">
+                    <div>
+                        <div class="item-name">{{ entry.name }}</div>
+                        <div class="item-meta">{{ entry.protein }}P · {{ entry.carbs }}C · {{ entry.fat }}F <span class="muted">/ 100g</span></div>
+                    </div>
+                    <div class="item-actions">
+                        <button type="button" class="btn-secondary"
+                                onclick="this.closest('.item').classList.toggle('editing')">Edit</button>
+                        <form method="POST" action="{{ url_for('foods_bp.delete_food') }}">
+                            <input type="hidden" name="food_id" value="{{ entry.id }}">
+                            <button type="submit" class="btn-danger">Delete</button>
+                        </form>
+                    </div>
+                </div>
+                <form method="POST" action="{{ url_for('foods_bp.update_food') }}" class="edit-form inline-form">
+                    <input type="hidden" name="food_id" value="{{ entry.id }}">
+                    <input name="name" value="{{ entry.name }}" required>
+                    <input name="protein" type="number" step="0.1" inputmode="decimal" value="{{ entry.protein }}" placeholder="Protein (g)">
+                    <input name="carbs"   type="number" step="0.1" inputmode="decimal" value="{{ entry.carbs }}"   placeholder="Carbs (g)">
+                    <input name="fat"     type="number" step="0.1" inputmode="decimal" value="{{ entry.fat }}"     placeholder="Fat (g)">
+                    <button type="submit">Save</button>
+                    <button type="button" class="btn-secondary"
+                            onclick="this.closest('.item').classList.remove('editing')">Cancel</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p class="muted">No saved foods yet.</p>
+    {% endif %}
+</div>
 
-      <p>
-        <a href="{{ url_for('main_bp.index') }}">Back to home</a>
-      </p>
-    </main>
 {% endblock %}
+
