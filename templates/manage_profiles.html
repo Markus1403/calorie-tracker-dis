@@ -1,43 +1,81 @@
 {% extends "base.html" %}
 
 {% block title %}Manage Goal Profiles{% endblock %}
+
 {% block content %}
-        <h1>Welcome to My Website</h1>
-        <table>
-          <thead>
-              <h3>Your Calorie Profiles</h3>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for profiles in calorie_profiles %}
-              <tr>
-                <td>{{ profiles.name }}</td>
-                <td>{{ profiles.calories }}</td>
-                <td>{{ profiles.carbs }}</td>
-                <td>{{ profiles.fat }}</td>
-                <td>{{ profiles.protein }}</td>
-              </tr>
+
+<div class="spread">
+    <h1 style="margin:0">Manage Goal Profiles</h1>
+    <form action="{{ url_for('main_bp.index') }}">
+        <button type="submit" class="btn-secondary">← Back</button>
+    </form>
+</div>
+
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <h2>Current Profiles</h2>
+            {% if profiles %}
+                <ul class="item-list">
+                {% for entry in profiles %}
+                    <li class="item">
+                        <div class="item-row">
+                            <div>
+                                <div class="item-name">{{ entry.name }}</div>
+                                <div class="item-meta">{{ entry.protein }}P · {{ entry.carbs }}C · {{ entry.fat }}F · {{ entry.calories }} kcal</div>
+                            </div>
+                            <div class="item-actions">
+                                <form method="POST" action="{{ url_for('profiles_bp.set_profile') }}">
+                                    <input type="hidden" name="name" value="{{ entry.name }}">
+                                    <input type="hidden" name="id"   value="{{ entry.id }}">
+                                    <input type="hidden" name="date" value="{{ curr_date }}">
+                                    <button type="submit">Set as current</button>
+                                </form>
+                                <button type="button" class="btn-secondary"
+                                        onclick="this.closest('.item').classList.toggle('editing')">Edit</button>
+                                {% if entry.name != 'Standard' %}
+                                    <form method="POST" action="{{ url_for('profiles_bp.delete_profile') }}">
+                                        <input type="hidden" name="name" value="{{ entry.name }}">
+                                        <input type="hidden" name="id"   value="{{ entry.id }}">
+                                        <input type="hidden" name="date" value="{{ curr_date }}">
+                                        <button type="submit" class="btn-danger">Delete</button>
+                                    </form>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <form method="POST" action="{{ url_for('profiles_bp.update_profile') }}" class="edit-form inline-form">
+                            <input type="hidden" name="id"   value="{{ entry.id }}">
+                            <input type="hidden" name="date" value="{{ curr_date }}">
+                            <input name="name" value="{{ entry.name }}" required>
+                            <input name="protein" type="number" step="0.1" inputmode="decimal" value="{{ entry.protein }}" placeholder="Protein (g)" required>
+                            <input name="carbs"   type="number" step="0.1" inputmode="decimal" value="{{ entry.carbs }}"   placeholder="Carbs (g)"   required>
+                            <input name="fat"     type="number" step="0.1" inputmode="decimal" value="{{ entry.fat }}"     placeholder="Fat (g)"     required>
+                            <button type="submit">Save</button>
+                            <button type="button" class="btn-secondary"
+                                    onclick="this.closest('.item').classList.remove('editing')">Cancel</button>
+                        </form>
+                    </li>
+                {% endfor %}
+                </ul>
             {% else %}
-              <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
-            {% endfor %}
+                <p class="muted">No profiles yet.</p>
+            {% endif %}
+        </div>
+    </div>
 
+    <div class="column">
+        <div class="card">
+            <h2>Create New Profile</h2>
+            <form method="POST" action="{{ url_for('profiles_bp.save_profile') }}" class="inline-form">
+                <input type="hidden" name="date" value="{{ curr_date }}">
+                <input name="name" placeholder="Profile name" required>
+                <input name="protein" type="number" pattern="[0-9]*" inputmode="decimal" step="0.1" placeholder="Protein (g)" required>
+                <input name="carbs"   type="number" pattern="[0-9]*" inputmode="decimal" step="0.1" placeholder="Carbs (g)" required>
+                <input name="fat"     type="number" pattern="[0-9]*" inputmode="decimal" step="0.1" placeholder="Fat (g)" required>
+                <button type="submit">Save Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
 
-            <div class="card">
-                <div class="spread">
-                    <form method="POST" action="{{ url_for('profiles_bp.manage_profiles') }}">
-                        <input type="hidden" name="date" value="{{ curr_date }}">
-                        <button type="submit" class="btn-secondary">Manage profiles</button>
-                    </form>
-                </div>
-          </tbody>
-    </main>
-    <script src="index.js"></script>
-  </body>
-</html>
 {% endblock %}
