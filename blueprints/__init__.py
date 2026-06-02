@@ -12,8 +12,6 @@ main_bp = Blueprint('main_bp', __name__)
 
 
 def insert_standard_foods(input_user_id):
-    banana = Food(user_id=input_user_id, name='Banana', carbs=27.0, fat=0.30, protein=1.30, calories=105)
-    db.session.add(banana)
 
     # Direct sql query to fulfill projext requirements. 
     db.session.execute(
@@ -30,6 +28,10 @@ def insert_standard_foods(input_user_id):
             "calories": 64,
         },
     )
+    banana = Food(user_id=input_user_id, name='Banana', carbs=27.0, fat=0.30, protein=1.30, calories=105)
+    db.session.add(banana)
+
+
     db.session.commit()
 
 
@@ -98,4 +100,10 @@ def index():
     foods = db.session.execute(
         db.select(Food).filter_by(user_id=session['user_id'])
     ).scalars().all()
+
+    calorie_profiles = db.session.execute(
+        db.select(CalorieProfile).filter_by(user_id=session['user_id'])
+    ).scalars().all()
+
+
     return render_template('index.html', foods=foods)
