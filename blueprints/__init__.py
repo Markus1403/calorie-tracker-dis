@@ -35,6 +35,15 @@ def insert_standard_foods(input_user_id):
     db.session.commit()
 
 
+
+
+def inser_standard_profile(input_user_id):
+    standard_profile = CalorieProfile(user_id=input_user_id, name="Standard Calorie Profile", carbs=400, fat=67.0, protein=200.0, calories=3083.1)
+    db.session.add(standard_profile)
+    db.session.commit()
+
+
+
 def login_required(view):
     """Redirect to the login page if no user is in the session."""
     @wraps(view)
@@ -63,6 +72,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             insert_standard_foods(user.id)
+            inser_standard_profile(user.id)
             return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')
@@ -106,4 +116,4 @@ def index():
     ).scalars().all()
 
 
-    return render_template('index.html', foods=foods)
+    return render_template('index.html', foods=foods, calorie_profiles=calorie_profiles)

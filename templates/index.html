@@ -38,6 +38,31 @@
             {% endfor %}
           </tbody>
         </table>
+
+        <table>
+          <thead>
+              <h3>Your Calorie Profiles</h3>
+            <tr>
+              <th>Name</th>
+              <th>Calories</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for profiles in calorie_profiles %}
+              <tr>
+                <td>{{ profiles.name }}</td>
+                <td>{{ profiles.calories }}</td>
+                <td>{{ profiles.carbs }}</td>
+                <td>{{ profiles.fat }}</td>
+                <td>{{ profiles.protein }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
+            {% endfor %}
+          </tbody>
     </main>
     <script src="index.js"></script>
   </body>
