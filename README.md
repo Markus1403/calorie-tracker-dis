@@ -39,6 +39,16 @@ After you've set up your user, create database owned by that user:
 
 After youve done this, you can now add your postgress link to your .env file. See .env.example for formatting. If youve named your user calorie_user you should only need to update the YOURPASSWORDHERE part of the username. 
 
+### Create the database tables
+
+The steps above only create an *empty* database. You still need to build the tables from the migrations, otherwise the app crashes with an Internal Server Error on the very first request (`relation "users" does not exist`). Run:
+
+``$ flask db upgrade``
+
+This applies the existing migrations and creates all the tables. You only need to do this once (and again whenever new migrations are added). After that you can start the server:
+
+``$ python run.py``
+
 
 # TODO
 
