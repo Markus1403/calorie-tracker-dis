@@ -181,6 +181,236 @@ def insert_standard_foods(input_user_id):
         },
     )
 
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Pineapple",
+            "carbs": 13.1,
+            "fat": 0.1,
+            "protein": 0.5,
+            "calories": 50,
+        },
+    )
+    
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Pear",
+            "carbs": 15.2,
+            "fat": 0.1,
+            "protein": 0.4,
+            "calories": 57,
+        },
+    )
+    
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Kiwi",
+            "carbs": 14.7,
+            "fat": 0.5,
+            "protein": 1.1,
+            "calories": 61,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Chicken Breast",
+            "carbs": 0,
+            "fat": 3.6,
+            "protein": 31,
+            "calories": 165,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Beef",
+            "carbs": 0,
+            "fat": 15.4,
+            "protein": 26.1,
+            "calories": 250,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "John Pork",
+            "carbs": 0,
+            "fat": 14,
+            "protein": 27.3,
+            "calories": 242,
+        },
+    )    
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Lamb",
+            "carbs": 0,
+            "fat": 20.9,
+            "protein": 24.4,
+            "calories": 294,
+        },
+    ) 
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Chicken Thigh",
+            "carbs": 0,
+            "fat": 10.9,
+            "protein": 26,
+            "calories": 209,
+        },
+    )
+
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Chicken Thigh",
+            "carbs": 0,
+            "fat": 10.9,
+            "protein": 26,
+            "calories": 209,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Ground Beef",
+            "carbs": 0,
+            "fat": 20,
+            "protein": 17.2,
+            "calories": 254,
+        },
+    )
+    
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Bacon",
+            "carbs": 1.4,
+            "fat": 42,
+            "protein": 36,
+            "calories": 541,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Duck",
+            "carbs": 0,
+            "fat": 28.4,
+            "protein": 19,
+            "calories": 337,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Salmon",
+            "carbs": 0,
+            "fat": 13.4,
+            "protein": 20.4,
+            "calories": 208,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Tuna",
+            "carbs": 0,
+            "fat": 1.3, 
+            "protein": 28.2,
+            "calories": 132,
+        },
+    )
+
+    db.session.execute(
+        text("""
+            INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
+            VALUES (:user_id, :name, :carbs, :fat, :protein, :calories)
+        """),
+        {
+            "user_id": input_user_id,
+            "name": "Mackerel",
+            "carbs": 0,
+            "fat": 13.9,
+            "protein": 18.6,
+            "calories": 205,
+        },
+    )
+ 
+ 
+ 
+ 
     banana = Food(user_id=input_user_id, name='Banana', carbs=27.0, fat=0.30, protein=1.30, calories=105)
     db.session.add(banana)
 
