@@ -58,6 +58,7 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 insert_standard_foods(user.id)
+                insert_standard_profile(user.id)
                 return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')
