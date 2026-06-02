@@ -15,9 +15,6 @@ main_bp = Blueprint('main_bp', __name__)
 
 
 
-
-
-
 def login_required(view):
     """Redirect to the login page if no user is in the session."""
     @wraps(view)
@@ -61,7 +58,6 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 insert_standard_foods(user.id)
-                insert_standard_profile(user.id)
                 return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')
