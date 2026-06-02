@@ -17,7 +17,9 @@ def create_app():
                                         
     from blueprints import main_bp
     from blueprints.profiles import profiles_bp
+    from blueprints.foods import foods_bp
 
     app.register_blueprint(main_bp)
     app.register_blueprint(profiles_bp)
+    app.register_blueprint(foods_bp)
     return app
