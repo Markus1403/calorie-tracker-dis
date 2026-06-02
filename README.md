@@ -17,7 +17,7 @@ It is expected that you already have postgreSQL installed on your device.
 #### For windows in CMD:
 ``$ .venv\Scripts\activate``
 
-#### macOS and Linux (the surperior choice):
+#### macOS and Linux (the superior choice):
 ``$ source .venv/bin/activate``
 
 ### Download relevant libraries: 
