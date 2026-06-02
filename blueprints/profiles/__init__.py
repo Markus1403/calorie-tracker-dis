@@ -11,7 +11,10 @@ from core.models import Food, User, FoodLog, CalorieProfile
 
 profiles_bp = Blueprint('profiles_bp', __name__)
 
-@profiles_bp.route('/manage_profiles', methods=['GET','POST']):
+@profiles_bp.route('/manage_profiles', methods=['GET','POST'])
+def manage_profiles():
+
+
     return render_template('manage_profiles.html')
 
 

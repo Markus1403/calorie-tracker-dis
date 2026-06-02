@@ -16,5 +16,8 @@ def create_app():
     import core.models
                                         
     from blueprints import main_bp
+    from blueprints.profiles import profiles_bp
+
     app.register_blueprint(main_bp)
+    app.register_blueprint(profiles_bp)
     return app

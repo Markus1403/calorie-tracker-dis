@@ -62,6 +62,11 @@
             {% else %}
               <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
             {% endfor %}
+                <div class="spread">
+                    <form method="POST" action="{{ url_for('profiles_bp.manage_profiles') }}">
+                        <button>Manage profiles</button>
+                    </form>
+                </div>
           </tbody>
     </main>
     <script src="index.js"></script>

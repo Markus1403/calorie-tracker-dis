@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>My Website</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <main>
+        <h1>Welcome to My Website</h1>
+        <p><a href="{{ url_for('main_bp.logout') }}">Log out</a></p>
+
+        <table>
+          <thead>
+              <h3>Your food and macros (pr. 100 grams)</h3>
+            <tr>
+              <th>Name</th>
+              <th>Calories</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for food in foods %}
+              <tr>
+                <td>{{ food.name }}</td>
+                <td>{{ food.calories }}</td>
+                <td>{{ food.carbs }}</td>
+                <td>{{ food.fat }}</td>
+                <td>{{ food.protein }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="5">No foods yet.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <table>
+          <thead>
+              <h3>Your Calorie Profiles</h3>
+            <tr>
+              <th>Name</th>
+              <th>Calories</th>
+              <th>Carbs</th>
+              <th>Fat</th>
+              <th>Protein</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for profiles in calorie_profiles %}
+              <tr>
+                <td>{{ profiles.name }}</td>
+                <td>{{ profiles.calories }}</td>
+                <td>{{ profiles.carbs }}</td>
+                <td>{{ profiles.fat }}</td>
+                <td>{{ profiles.protein }}</td>
+              </tr>
+            {% else %}
+              <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
+            {% endfor %}
+            <tr><td> Manage Profiles</td></tr>
+
+
+            <div class="card">
+                <div class="spread">
+                    <form method="POST" action="{{ url_for('profiles_bp.manage_profiles') }}">
+                        <input type="hidden" name="date" value="{{ curr_date }}">
+                        <button type="submit" class="btn-secondary">Manage profiles</button>
+                    </form>
+                </div>
+          </tbody>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>
