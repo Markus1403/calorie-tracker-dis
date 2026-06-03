@@ -7,7 +7,7 @@ from flask import (
 from core.extensions import db
 from sqlalchemy import text
 from core.models import Food, User, FoodLog, CalorieProfile, DailyGoal, safe_float
-from core.helpers import insert_standard_foods, insert_standard_profile
+from core.helpers import insert_standard_foods, insert_standard_profile, calculate_calories
 from datetime import date, timedelta
 
 import re
@@ -168,7 +168,7 @@ def quick_add_macros():
     fat = safe_float(request.form.get('fat', None))
     meal_time = request.form.get('meal_time')
     #Should maybe update formula
-    calories = (protein * 4) + (carbs * 4) + (fat * 9) 
+    calories = calculate_calories(carbs, fat, protein)
     
     new_food_entry = FoodLog(
         user_id=session['user_id'],
