@@ -38,7 +38,6 @@ class DailyGoal(db.Model):
     id       = db.Column(db.Integer, primary_key = True)
     user_id  = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
     profile_id = db.Column(db.Integer, db.ForeignKey("calorie_profiles.id"), nullable=False, index=True)
-
     date = db.Column(db.Date, nullable=False, default=date.today)
 
     user = db.relationship("User", back_populates="daily_goals")

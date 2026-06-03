@@ -1,4 +1,5 @@
 from functools import wraps
+from datetime import date
 
 from flask import (
     Blueprint, render_template, request, redirect, url_for, flash, session
@@ -427,5 +428,14 @@ def insert_standard_foods(input_user_id):
 
 def insert_standard_profile(input_user_id):
     standard_profile = CalorieProfile(user_id=input_user_id, name="Standard Calorie Profile", carbs=400, fat=67.0, protein=200.0, calories=3083.1)
+
+
+    standard_goal = DailyGoal(
+                user_id=input_user_id,
+                profile_id= standard_profile.id,
+                date = date(1980, 0, 0)
+            )
+
+
     db.session.add(standard_profile)
     db.session.commit()
