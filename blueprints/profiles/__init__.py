@@ -8,7 +8,7 @@ from flask import (
 from core.extensions import db
 from core.helpers import calculate_calories
 from sqlalchemy import text
-from core.models import Food, User, FoodLog, CalorieProfile
+from core.models import Food, User, FoodLog, CalorieProfile, DailyGoal
 
 profiles_bp = Blueprint('profiles_bp', __name__)
 
@@ -48,7 +48,33 @@ def save_profile():
 
 @profiles_bp.route('/manage_profiles/delete_profile', methods=['GET', 'POST'])
 def delete_profile():
-    curr_date = request.form.get("date") 
+    
+    entry_id = request.form.get("id")
+
+    db.session.execute(
+        text('''
+            DELETE FROM daily_goal
+            WHERE profile_id = :id
+        '''),
+        {
+            "id": entry_id
+        },
+    )
+
+    db.session.execute(
+        text('''
+            DELETE FROM calorie_profiles
+            WHERE id = :id
+        '''),
+        {
+            "id": entry_id
+        },
+    )
+
+    db.session.commit()
+
+
+
     return redirect(url_for('profiles_bp.manage_profiles'))
 
 
@@ -89,5 +115,33 @@ def update_profile():
 
 @profiles_bp.route('/manage_profiles/set_profile', methods=['GET', 'POST'])
 def set_profile():
-    curr_date = request.form.get("date") 
+    curr_date = date.today()
+     
+    
+    entry_id = request.form.get("id")
+
+    db.session.execute(
+        text('''
+            DELETE FROM daily_goal
+            WHERE date = :date
+        '''), 
+        {
+            "date": curr_date
+        },
+    )
+
+    db.session.execute(
+            text('''
+                INSERT INTO daily_goal (user_id, profile_id, date)
+                VALUES (:user_id, :profile_id, :date)
+            '''),
+            {
+                "user_id":    session['user_id'],
+                "profile_id": entry_id,
+                "date":       curr_date
+            },
+    )
+    db.session.commit()
+
+
     return redirect(url_for('profiles_bp.manage_profiles'))
