@@ -68,7 +68,7 @@ input, select, button, textarea {
     color: var(--text);
 }
 
-input[type="text"], input[type="number"], input:not([type]), select, textarea {
+input[type="text"], input[type="password"], input[type="number"], input:not([type]), select, textarea {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 8px;

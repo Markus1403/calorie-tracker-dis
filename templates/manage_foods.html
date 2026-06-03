@@ -12,6 +12,17 @@
 </div>
 
 <div class="card">
+    <h2>Add New Food</h2>
+    <form method="POST" action="{{ url_for('foods_bp.insert_food') }}" class="inline-form">
+        <input name="name" placeholder="Food name" required>
+        <input name="protein" type="number" step="0.1" inputmode="decimal" placeholder="Protein (g)" required>
+        <input name="carbs" type="number" step="0.1" inputmode="decimal" placeholder="Carbs (g)" required>
+        <input name="fat" type="number" step="0.1" inputmode="decimal" placeholder="Fat (g)" required>
+        <button type="submit">Add Food</button>
+    </form>
+</div>
+
+<div class="card">
     {% if foods %}
         <ul class="item-list">
         {% for entry in foods %}

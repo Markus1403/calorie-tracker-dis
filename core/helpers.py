@@ -12,12 +12,15 @@ main_bp = Blueprint('main_bp', __name__)
 
 
 def calculate_calories(carbs, fats, protein):
+    carbs = float(carbs)
+    fats = float(fats)
+    protein = float(protein)
     return carbs * 4 + protein * 4 + fats * 9
 
 
 def insert_standard_foods(input_user_id):
 
-    # Direct sql query to fulfill projext requirements. 
+    # Direct sql query to fulfill project requirements
     db.session.execute(
         text("""
             INSERT INTO foods (user_id, name, carbs, fat, protein, calories)
