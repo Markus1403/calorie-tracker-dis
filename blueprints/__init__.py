@@ -113,7 +113,7 @@ def index():
     prev_date = (curr_date_nonISO - timedelta(days=1)).isoformat()
     next_date = (curr_date_nonISO + timedelta(days=1)).isoformat()
     
-    log_row = db.session.scalars(db.select(FoodLog).filter_by(user_id=session['user_id'], date=curr_date)).all()
+    log_row = db.session.scalars(db.select(FoodLog).where(FoodLog.date == curr_date).filter_by(user_id=session['user_id'])).all()
     
     log = []
     for row in log_row:
@@ -161,27 +161,69 @@ def index():
 
 
 @main_bp.route('/add_macros', methods=['POST'])
-def add_macros():
+def quick_add_macros():
     curr_date = request.form.get("date")
-    protein = safe_float(request.form.get('protein', 0))
-    carbs = safe_float(request.form.get('carbs', 0))
-    fat = safe_float(request.form.get('fat', 0))
+    protein = safe_float(request.form.get('protein', None))
+    carbs = safe_float(request.form.get('carbs', None))
+    fat = safe_float(request.form.get('fat', None))
     meal_time = request.form.get('meal_time')
+    #Should maybe update formula
+    calories = (protein * 4) + (carbs * 4) + (fat * 9) 
     
-
     new_food_entry = FoodLog(
         user_id=session['user_id'],
         date=curr_date,
-        meal_time = meal_time,
-        food_id = 1, #placeholder
-        quantity_grams = 1, #placeholder
+        mealtime = meal_time,
+        food_id = None, 
+        quantity_grams = 0, 
         protein= protein,
         carbs=carbs,
         fat=fat,
-        calories = 2 #formula here
+        calories = calories 
         )
     db.session.add(new_food_entry)
     db.session.commit()
-    db.close()
+    
+    return redirect(f'/?date={curr_date}')
+
+@main_bp.route('/add_food', methods=['POST'])
+def add_food():
+    curr_date = request.form.get("date")
+    food_id = int(request.form['food_id'])
+    meal_time = request.form.get("meal_time")
+    grams = float(request.form.get("grams"))
+    multiplier = float(grams/100)
+    
+    stmt = db.select(Food).where(Food.user_id == session['user_id']).where(Food.id == food_id)
+    food = db.session.scalars(stmt).first()
+    
+    if not food:
+        return "Food not found", 404
+    
+    new_food_entry = FoodLog(
+        user_id=session['user_id'],
+        date=curr_date,
+        mealtime = meal_time,
+        food_id = food_id, 
+        quantity_grams = grams, 
+        protein= safe_float(food.protein) * multiplier,
+        carbs= safe_float(food.carbs) * multiplier,
+        fat= safe_float(food.fat) * multiplier,
+        calories = safe_float(food.calories) * multiplier 
+        )
+    db.session.add(new_food_entry)
+    db.session.commit()
+    
+    return redirect(f'/?date={curr_date}')
+
+#Delete might be buggy
+@main_bp.route('/delete_entry<int:entry_id>', methods=['POST'])
+def delete_entry(entry_id):
+    curr_date = request.form.get("date")
+    
+    entry = db.session.scalar(db.select(FoodLog).where(FoodLog.id == entry_id).where(FoodLog.user_id == session['user_id']))
+    if entry:
+        db.session.delete(entry)
+        db.session.commit()
     
     return redirect(f'/?date={curr_date}')
