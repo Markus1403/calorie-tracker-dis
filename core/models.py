@@ -11,9 +11,10 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False, index=True)
     password = db.Column(db.String(80), nullable=False)
 
-    foods    = db.relationship("Food", back_populates="user", cascade="all, delete-orphan")
-    profiles = db.relationship("CalorieProfile", back_populates="user", cascade="all, delete-orphan")
-    logs     = db.relationship("FoodLog", back_populates="user", cascade="all, delete-orphan")
+    foods       = db.relationship("Food", back_populates="user", cascade="all, delete-orphan")
+    profiles    = db.relationship("CalorieProfile", back_populates="user", cascade="all, delete-orphan")
+    logs        = db.relationship("FoodLog", back_populates="user", cascade="all, delete-orphan")
+    daily_goals = db.relationship("DailyGoal", back_populates="user", cascade="all, delete-orphan")
 
 class CalorieProfile(db.Model):
     __tablename__ = "calorie_profiles"
@@ -28,6 +29,21 @@ class CalorieProfile(db.Model):
     calories = db.Column(db.Numeric(8, 2), nullable=False)
 
     user = db.relationship("User", back_populates="profiles")
+    daily_goals = db.relationship("DailyGoal", back_populates="calorie_profile", cascade="all, delete-orphan")
+
+
+class DailyGoal(db.Model):
+    __tablename__ = "daily_goal"
+
+    id       = db.Column(db.Integer, primary_key = True)
+    user_id  = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False, index=True)
+    profile_id = db.Column(db.Integer, db.ForeignKey("calorie_profiles.id"), nullable=False, index=True)
+
+    date = db.Column(db.Date, nullable=False, default=date.today)
+
+    user = db.relationship("User", back_populates="daily_goals")
+    calorie_profile = db.relationship("CalorieProfile", back_populates="daily_goals")
+
 
 class Food(db.Model):
     __tablename__ = "foods"
