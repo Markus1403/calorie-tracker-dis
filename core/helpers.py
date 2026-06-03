@@ -11,6 +11,10 @@ from core.models import Food, User, FoodLog, CalorieProfile
 main_bp = Blueprint('main_bp', __name__)
 
 
+def calculate_calories(carbs, fats, protein):
+    return carbs * 4 + protein * 4 + fats * 9
+
+
 def insert_standard_foods(input_user_id):
 
     # Direct sql query to fulfill projext requirements. 
