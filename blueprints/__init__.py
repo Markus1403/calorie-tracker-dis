@@ -140,13 +140,14 @@ def index():
     
     goal = db.session.scalars(stmt).first()
     
+    
     goals = {'name': 'value',  'calories': 0, 'protein': 0, 'carbs': 0, 'fat': 0}
     if goal:
-        goals['calories'] = goal.calories
-        goals['protein'] = goal.protein
-        goals['carbs'] = goal.carbs
-        goals['fat'] = goal.fat
-        goals['name'] = goal.name
+        goals['calories'] = goal.calorie_profile.calories
+        goals['protein'] = goal.calorie_profile.protein
+        goals['carbs'] = goal.calorie_profile.carbs
+        goals['fat'] = goal.calorie_profile.fat
+        goals['name'] = goal.calorie_profile.name
         
     goalsLeft = {
         'calories': round(goals['calories'] - total['calories'], 2), 
@@ -165,8 +166,8 @@ def add_macros():
     protein = safe_float(request.form.get('protein', 0))
     carbs = safe_float(request.form.get('carbs', 0))
     fat = safe_float(request.form.get('fat', 0))
-    
     meal_time = request.form.get('meal_time')
+    
 
     new_food_entry = FoodLog(
         user_id=session['user_id'],
