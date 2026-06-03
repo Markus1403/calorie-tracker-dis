@@ -166,8 +166,7 @@ def quick_add_macros():
     protein = safe_float(request.form.get('protein', None))
     carbs = safe_float(request.form.get('carbs', None))
     fat = safe_float(request.form.get('fat', None))
-    meal_time = request.form.get('meal_time')
-    #Should maybe update formula
+    meal_time = request.form.get('mealtime')
     calories = calculate_calories(carbs, fat, protein)
     
     new_food_entry = FoodLog(

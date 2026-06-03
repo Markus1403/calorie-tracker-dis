@@ -26,12 +26,21 @@
         </div>
 
         <div class="add-macro-form">
-            <form method="POST" action="/add_macros">
+            <form method="POST" action="{{ url_for('main_bp.quick_add_macros') }}">
                 <input type="hidden" name="date" value="{{ curr_date }}">
-                <input type="text" name="meal_time" placeholder="Meal Time (e.g. Breakfast)">
+
+                <select name="mealtime" required>
+                    <option value="">Choose meal time</option>
+                    <option value="breakfast">Breakfast</option>
+                    <option value="lunch">Lunch</option>
+                    <option value="dinner">Dinner</option>
+                    <option value="snack">Snack</option>
+                </select>
+
                 <input type="number" step="0.1" name="protein" placeholder="Protein (g)">
                 <input type="number" step="0.1" name="carbs" placeholder="Carbs (g)">
                 <input type="number" step="0.1" name="fat" placeholder="Fat (g)">
+
                 <button type="submit">Quick Add Macros</button>
             </form>
         </div>
@@ -49,7 +58,7 @@
             <tbody>
                 {% for entry in log %}
                     <tr>
-                        <td>{{ entry.meal_time }}</td>
+                        <td>{{ entry.mealtime }}</td>
                         <td>{{ entry.protein }}g</td>
                         <td>{{ entry.carbs }}g</td>
                         <td>{{ entry.fat }}g</td>
