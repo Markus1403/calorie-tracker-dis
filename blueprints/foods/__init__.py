@@ -12,7 +12,7 @@ foods_bp = Blueprint('foods_bp', __name__)
 def manage_foods():
 
     foods = db.session.execute(
-        db.select(Food).filter_by(user_id=session['user_id'])
+        db.select(Food).filter_by(user_id=session['user_id']).order_by(Food.id)
     ).scalars().all()
 
     return render_template('manage_foods.html', foods=foods)
