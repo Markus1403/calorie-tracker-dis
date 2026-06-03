@@ -7,7 +7,7 @@ from flask import (
 
 from core.extensions import db
 from sqlalchemy import text
-from core.models import Food, User, FoodLog, CalorieProfile
+from core.models import Food, User, FoodLog, CalorieProfile, DailyGoal
 
 main_bp = Blueprint('main_bp', __name__)
 
@@ -433,7 +433,7 @@ def insert_standard_profile(input_user_id):
     standard_goal = DailyGoal(
                 user_id=input_user_id,
                 profile_id= standard_profile.id,
-                date = date(1980, 0, 0)
+                date = date(1980, 1, 1)
             )
 
 
