@@ -3,11 +3,11 @@ Group project for the course Databases and Information Systems (DIS) at UCPH
 
 This project utilizes Python, Flask with a postgreSQL databse.
 
-### E/R-Model:
-<img width="2400" height="1792" alt="image" src="https://github.com/user-attachments/assets/ccc031f3-be83-41fc-ba62-01c88c0bae8c" />
-
 ### Prerequirements:
 It is expected that you already have postgreSQL installed on your device.
+
+# E/R-Model:
+<img width="2400" height="1792" alt="image" src="https://github.com/user-attachments/assets/ccc031f3-be83-41fc-ba62-01c88c0bae8c" />
 
 # Setup virtual environment 
 
