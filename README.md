@@ -6,6 +6,9 @@ This project utilizes Python, Flask with a postgreSQL databse.
 ### Prerequirements:
 It is expected that you already have postgreSQL installed on your device.
 
+# E/R-Model:
+<img width="2400" height="1792" alt="image" src="https://github.com/user-attachments/assets/ccc031f3-be83-41fc-ba62-01c88c0bae8c" />
+
 # Setup virtual environment 
 
 ### Start by installing your virtual environment:
