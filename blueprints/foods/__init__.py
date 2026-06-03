@@ -20,7 +20,7 @@ def manage_foods():
 @foods_bp.route('/manage_foods/delete_food', methods=['POST'])
 def delete_food():
     food_id = request.form.get("food_id")
-    food = db.session.execute(
+    db.session.execute(
         text("""
             DELETE FROM foods
             WHERE id = :food_id
@@ -37,6 +37,33 @@ def delete_food():
 
 @foods_bp.route('/manage_foods/update_food', methods=['POST'])
 def update_food():
+    food_id = request.form.get("food_id")
+    name = request.form.get("name")
+    protein = request.form.get("protein")
+    carbs = request.form.get("carbs")
+    fat = request.form.get("fat")
+
+    db.session.execute(
+        text("""
+            UPDATE foods
+            SET name = :name,
+                protein = :protein,
+                carbs = :carbs,
+                fat = :fat
+            WHERE id = :food_id
+                AND user_id = :user_id
+        """),
+        {
+            "food_id": food_id,
+            "user_id": session["user_id"],
+            "name": name,
+            "carbs": carbs,
+            "protein": protein,
+            "fat": fat
+        }
+    )
+    db.session.commit()
+
     return redirect(url_for('foods_bp.manage_foods'))
 
 
