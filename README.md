@@ -7,7 +7,7 @@ This project utilizes Python, Flask with a postgreSQL databse.
 It is expected that you already have postgreSQL installed on your device.
 
 # E/R-Model:
-<img width="2400" height="1792" alt="image" src="https://github.com/user-attachments/assets/ccc031f3-be83-41fc-ba62-01c88c0bae8c" />
+<img width="7013" height="5296" alt="Entity-relationship (ER) Diagram (Community)" src="https://github.com/user-attachments/assets/da18c0e0-99eb-4bd6-a6bc-dce598638ebd" />
 
 # Setup virtual environment 
 
