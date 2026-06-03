@@ -6,8 +6,9 @@ from flask import (
 
 from core.extensions import db
 from sqlalchemy import text
-from core.models import Food, User, FoodLog, CalorieProfile
+from core.models import Food, User, FoodLog, CalorieProfile, DailyGoal, safe_float
 from core.helpers import insert_standard_foods, insert_standard_profile
+from datetime import date, timedelta
 
 import re
 
@@ -58,7 +59,7 @@ def register():
                 db.session.add(user)
                 db.session.commit()
                 insert_standard_foods(user.id)
-                insert_standard_profile(user.id)
+                insert_standard_profile(user.id) 
                 return redirect(url_for('main_bp.login'))
 
     return render_template('register.html')
@@ -90,7 +91,7 @@ def logout():
     return redirect(url_for('main_bp.login'))
 
 
-@main_bp.route('/', methods=['GET'])
+@main_bp.route('/', methods=['GET','POST'])
 @login_required
 def index():
     foods = db.session.execute(
@@ -100,6 +101,86 @@ def index():
     calorie_profiles = db.session.execute(
         db.select(CalorieProfile).filter_by(user_id=session['user_id'])
     ).scalars().all()
+    
+    curr_date_str = request.args.get('date')
+    if curr_date_str:
+        curr_date_nonISO = date.fromisoformat(curr_date_str)
+    else:
+        curr_date_nonISO = date.today()
+
+    curr_date = curr_date_nonISO.isoformat()
+    
+    prev_date = (curr_date_nonISO - timedelta(days=1)).isoformat()
+    next_date = (curr_date_nonISO + timedelta(days=1)).isoformat()
+    
+    log_row = db.session.scalars(db.select(FoodLog).filter_by(user_id=session['user_id'], date=curr_date)).all()
+    
+    log = []
+    for row in log_row:
+        rounded_row = {col.name: getattr(row, col.name) for col in row.__table__.columns}
+        
+        rounded_row['protein'] = round(rounded_row['protein'], 2)
+        rounded_row['carbs'] = round(rounded_row['carbs'], 2)
+        rounded_row['fat'] = round(rounded_row['fat'], 2)
+        log.append(rounded_row)
+    
+    total = {'calories': 0, 'protein': 0, 'carbs': 0, 'fat': 0}
+    for entry in log_row:
+        total['protein'] += entry.protein
+        total['carbs'] += entry.carbs
+        total['fat'] += entry.fat
+    
+    #UPDATE FORMULA LATER
+    total['calories'] = total['protein'] * 4 + total['carbs'] * 4 + total['fat'] * 9
+
+    for key in total:
+        total[key] = round(total[key],2)
+
+    stmt = db.select(DailyGoal).where(DailyGoal.date <= curr_date).where(DailyGoal.user_id == session['user_id']).order_by(DailyGoal.date.desc())
+    
+    goal = db.session.scalars(stmt).first()
+    
+    goals = {'name': 'value',  'calories': 0, 'protein': 0, 'carbs': 0, 'fat': 0}
+    if goal:
+        goals['calories'] = goal.calories
+        goals['protein'] = goal.protein
+        goals['carbs'] = goal.carbs
+        goals['fat'] = goal.fat
+        goals['name'] = goal.name
+        
+    goalsLeft = {
+        'calories': round(goals['calories'] - total['calories'], 2), 
+        'protein': round(goals['protein'] - total['protein'], 2), 
+        'carbs': round(goals['carbs'] - total['carbs'], 2), 
+        'fat': round(goals['fat'] - total['fat'], 2)
+    }
+
+    return render_template('index.html', foods=foods, calorie_profiles=calorie_profiles, log=log, total = total, goals=goals, goalsLeft=goalsLeft, curr_date=curr_date, prev_date=prev_date, next_date=next_date)
 
 
-    return render_template('index.html', foods=foods, calorie_profiles=calorie_profiles)
+
+@main_bp.route('/add_macros', methods=['POST'])
+def add_macros():
+    curr_date = request.form.get("date")
+    protein = safe_float(request.form.get('protein', 0))
+    carbs = safe_float(request.form.get('carbs', 0))
+    fat = safe_float(request.form.get('fat', 0))
+    
+    meal_time = request.form.get('meal_time')
+
+    new_food_entry = FoodLog(
+        user_id=session['user_id'],
+        date=curr_date,
+        meal_time = meal_time,
+        food_id = 1, #placeholder
+        quantity_grams = 1, #placeholder
+        protein= protein,
+        carbs=carbs,
+        fat=fat,
+        calories = 2 #formula here
+        )
+    db.session.add(new_food_entry)
+    db.session.commit()
+    db.close()
+    
+    return redirect(f'/?date={curr_date}')

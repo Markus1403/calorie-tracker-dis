@@ -3,44 +3,105 @@
 {% block title %}DIS Calorie Tracker {% endblock %}
 
 {% block content %}
-
+    <main>
         <p><a href="{{ url_for('main_bp.logout') }}">Log out</a></p>
-           <!-- <h3>Your food and macros (pr. 100 grams)</h3> --> 
-         <div class="spread">
-                    <form method="POST" action="{{ url_for('foods_bp.manage_foods') }}">
-                        <button>Manage Foods</button>
-                    </form>
-                </div>
-          <table>
-          <thead>
-              <h3>Your Calorie Profiles</h3>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for profiles in calorie_profiles %}
-              <tr>
-                <td>{{ profiles.name }}</td>
-                <td>{{ profiles.calories }}</td>
-                <td>{{ profiles.carbs }}</td>
-                <td>{{ profiles.fat }}</td>
-                <td>{{ profiles.protein }}</td>
-              </tr>
-            {% else %}
-              <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
-            {% endfor %}
-                <div class="spread">
-                    <form method="POST" action="{{ url_for('profiles_bp.manage_profiles') }}">
-                        <button>Manage profiles</button>
-                    </form>
-                </div>
-          </tbody>
+
+        <div class="date-header" style="text-align: center; margin-bottom: 20px;">
+            <a href="{{ url_for('main_bp.index', date=prev_date) }}">&larr; Previous</a>
+            <strong style="margin: 0 15px;">{{ curr_date }}</strong>
+            <a href="{{ url_for('main_bp.index', date=next_date) }}">Next &rarr;</a>
+        </div>
+
+        <div class="dashboard-totals">
+            <h3>Today's Summary</h3>
+            <p>
+                <strong>Calories:</strong> {{ total.calories }} / {{ goals.calories }} 
+                (Remaining: {{ goalsLeft.calories }})
+            </p>
+            <ul>
+                <li>Protein: {{ total.protein }}g / {{ goals.protein }}g</li>
+                <li>Carbs: {{ total.carbs }}g / {{ goals.carbs }}g</li>
+                <li>Fat: {{ total.fat }}g / {{ goals.fat }}g</li>
+            </ul>
+        </div>
+
+        <div class="add-macro-form">
+            <form method="POST" action="/add_macros">
+                <input type="hidden" name="date" value="{{ curr_date }}">
+                <input type="text" name="meal_time" placeholder="Meal Time (e.g. Breakfast)">
+                <input type="number" step="0.1" name="protein" placeholder="Protein (g)">
+                <input type="number" step="0.1" name="carbs" placeholder="Carbs (g)">
+                <input type="number" step="0.1" name="fat" placeholder="Fat (g)">
+                <button type="submit">Quick Add Macros</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <h3>Today's Food Log</h3>
+                <tr>
+                    <th>Meal Time</th>
+                    <th>Protein</th>
+                    <th>Carbs</th>
+                    <th>Fat</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in log %}
+                    <tr>
+                        <td>{{ entry.meal_time }}</td>
+                        <td>{{ entry.protein }}g</td>
+                        <td>{{ entry.carbs }}g</td>
+                        <td>{{ entry.fat }}g</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="4" style="text-align: center;">No foods logged yet today. Time to eat!</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <hr>
+
+        <div class="spread">
+            <form method="POST" action="{{ url_for('foods_bp.manage_foods') }}">
+                <button>Manage Foods</button>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <h3>Your Calorie Profiles</h3>
+                <tr>
+                    <th>Name</th>
+                    <th>Calories</th>
+                    <th>Carbs</th>
+                    <th>Fat</th>
+                    <th>Protein</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for profiles in calorie_profiles %}
+                    <tr>
+                        <td>{{ profiles.name }}</td>
+                        <td>{{ profiles.calories }}</td>
+                        <td>{{ profiles.carbs }}</td>
+                        <td>{{ profiles.fat }}</td>
+                        <td>{{ profiles.protein }}</td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="5">No Calorie Profiles yet.</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <div class="spread">
+            <form method="POST" action="{{ url_for('profiles_bp.manage_profiles') }}">
+                <button>Manage profiles</button>
+            </form>
+        </div>
+
     </main>
     <script src="index.js"></script>
-  </body>
 {% endblock %}

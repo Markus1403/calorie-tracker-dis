@@ -78,4 +78,10 @@ class FoodLog(db.Model):
     calories       = db.Column(db.Numeric(8, 2), nullable=True)
     
     user = db.relationship("User", back_populates="logs")
-    food = db.relationship("Food") 
+    food = db.relationship("Food")
+
+def safe_float(value):
+    try:
+        return float(value)
+    except (ValueError, TypeError):
+        return 0.0
