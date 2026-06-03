@@ -5,34 +5,13 @@
 {% block content %}
 
         <p><a href="{{ url_for('main_bp.logout') }}">Log out</a></p>
-
-        <table>
-          <thead>
-              <h3>Your food and macros (pr. 100 grams)</h3>
-            <tr>
-              <th>Name</th>
-              <th>Calories</th>
-              <th>Carbs</th>
-              <th>Fat</th>
-              <th>Protein</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for food in foods %}
-              <tr>
-                <td>{{ food.name }}</td>
-                <td>{{ food.calories }}</td>
-                <td>{{ food.carbs }}</td>
-                <td>{{ food.fat }}</td>
-                <td>{{ food.protein }}</td>
-              </tr>
-            {% else %}
-              <tr><td colspan="5">No foods yet.</td></tr>
-            {% endfor %}
-          </tbody>
-        </table>
-
-        <table>
+           <!-- <h3>Your food and macros (pr. 100 grams)</h3> --> 
+         <div class="spread">
+                    <form method="POST" action="{{ url_for('foods_bp.manage_foods') }}">
+                        <button>Manage Foods</button>
+                    </form>
+                </div>
+          <table>
           <thead>
               <h3>Your Calorie Profiles</h3>
             <tr>
