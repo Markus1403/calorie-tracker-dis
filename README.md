@@ -53,15 +53,3 @@ This applies the existing migrations and creates all the tables. You only need t
 ``$ python run.py``
 
 
-# TODO
-
-- Add more standardfoods to init.py
-- Add calorie profiles
-- Add food log to html page
-- Finish the TODO list
-
-
-
-
-
-
