@@ -31,7 +31,6 @@
             <h3>Quick Add</h3>
             <form method="POST" action="{{ url_for('main_bp.quick_add_macros') }}">
                 <input type="hidden" name="date" value="{{ curr_date }}">
-
                 <select name="mealtime" required>
                     <option value="">Choose meal time</option>
                     <option value="breakfast">Breakfast</option>
@@ -89,6 +88,16 @@
                         <td>{{ entry.protein }}g</td>
                         <td>{{ entry.carbs }}g</td>
                         <td>{{ entry.fat }}g</td>
+
+                    <td>
+                        <div class="item-actions">
+                            <form method="POST" action="{{ url_for('main_bp.delete_entry') }}">
+                            <input type="hidden" name="date">
+                                <input type="hidden" name="entry_id" value="{{ entry.id }}">
+                                <button type="submit" class="btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </td>                 
                     </tr>
                 {% else %}
                     <tr>

@@ -216,8 +216,9 @@ def add_food():
     return redirect(f'/?date={curr_date}')
 
 #Delete might be buggy
-@main_bp.route('/delete_entry<int:entry_id>', methods=['POST'])
-def delete_entry(entry_id):
+@main_bp.route('/delete_entry', methods=['POST'])
+def delete_entry():
+    entry_id = request.form.get("entry_id")
     curr_date = request.form.get("date")
     
     entry = db.session.scalar(db.select(FoodLog).where(FoodLog.id == entry_id).where(FoodLog.user_id == session['user_id']))
