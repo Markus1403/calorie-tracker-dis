@@ -52,8 +52,13 @@ This applies the existing migrations and creates all the tables. You only need t
 ``$ python run.py``
 
 If you get an Internal Server Error after logging in. Try: 
-``$ flask db migrate -m "add DailyGoal table"
-  $ flask db upgrade``
+
+``$ flask db migrate -m "add DailyGoal table"``
+
+Followed by:
+
+``flask db upgrade``
+
 # Interacting with the Application
 
 After running the setup commands above, launch the application. You will be greeted with a login screen. If this is your first time using the application, you will need to register by creating a username and password.
