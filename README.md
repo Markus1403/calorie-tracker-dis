@@ -51,4 +51,29 @@ This applies the existing migrations and creates all the tables. You only need t
 
 ``$ python run.py``
 
+# Deklaration for anvendelse af generative AI-værktøjer
+
+☒ Jeg/vi har benyttet generativ AI som hjælpemiddel/værktøj
+
+☐ Jeg/vi har IKKE benyttet generativ AI som hjælpemiddel/værktøj
+
+## Oplist, hvilke GAI-værktøjer der er benyttet, inkl. link til platformen
+
+* Claude (Anthropic): https://claude.com/
+
+## Beskriv hvordan generativ AI er anvendt i opgaven
+
+### 1) Formål (hvad har du/I brugt værktøjet til)
+
+* Hjælp til Styling i CSS
+* Hjælp til HTML
+
+### 2) Arbejdsfase (hvornår i arbejdsprocessen har du/I brugt GAI)
+
+* Under udviklingen af applikationen.
+
+### 3) Hvad gjorde du/I med outputtet (herunder også, om du/I har redigeret outputtet og arbejdet videre med det)
+
+* Outputtet blev brugt i det endelige produkt.
+
 
