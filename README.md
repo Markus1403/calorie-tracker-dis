@@ -29,16 +29,14 @@ It is expected that you already have postgreSQL installed on your device.
 
 ### Setup your database
 
-You need to setup a databse for the website to connect to. This assumes youre using linux (Again the superior choice.)
+You need to setup a databse for the website to connect to. This assumes youre using linux (Again the superior choice.) or macOS
 Start by creating a login role:
 
 ``$ sudo -u postgres psql -c "CREATE ROLE calorie_user WITH LOGIN PASSWORD 'YOURPASSWORDHERE';"``
 
 After you've set up your user, create database owned by that user:
 
-``$ sudo -u postgres psql -c "CREATE DATABASE calorie_tracker OWNER calorie_user;"
-"
-``
+``$ sudo -u postgres psql -c "CREATE DATABASE calorie_tracker OWNER calorie_user;"``
 
 After youve done this, you can now add your postgress link to your .env file. See .env.example for formatting. If youve named your user calorie_user you should only need to update the YOURPASSWORDHERE part of the username. 
 
