@@ -338,6 +338,10 @@ button.btn-danger:hover, .btn-danger:hover {
     }
 }
 
+.hidden-section {
+    display: none !important; 
+}
+
 /* ---------- Responsive tweaks ---------- */
 @media (max-width: 480px) {
     .container { padding: 14px 12px 64px; }
