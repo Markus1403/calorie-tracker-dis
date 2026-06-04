@@ -51,6 +51,40 @@ This applies the existing migrations and creates all the tables. You only need t
 
 ``$ python run.py``
 
+# Interacting with the Application
+
+After running the setup commands above, launch the application. You will be greeted with a login screen. If this is your first time using the application, you will need to register by creating a username and password.
+
+Once logged in, you will have access to the following features:
+
+### Option 1 – Adding Food
+
+The **Add Food** feature allows you to log food entries by selecting:
+
+* A meal type (e.g., breakfast, lunch, dinner)
+* A food item
+* The quantity consumed
+
+After entering the required information, click the **Add Food** button to save the entry.
+
+You can also use the **Quick Add** option to add a non-specific food entry based on its nutritional content.
+
+### Option 2 – Managing Food
+
+The **Manage Food** tab allows you to maintain your food entries. From this section, you can:
+
+* Add additional food entries
+* Edit existing entries
+* Delete entries that are no longer needed
+
+### Option 3 – Managing Profiles
+
+The **Manage Profiles** tab allows you to create and manage profiles. Profiles act as nutrition or fitness goals, and you can create multiple profiles for different objectives.
+
+You can also select any created profile as your current active goal.
+
+
+
 # Deklaration for anvendelse af generative AI-værktøjer
 
 ☒ Jeg/vi har benyttet generativ AI som hjælpemiddel/værktøj
@@ -66,7 +100,7 @@ This applies the existing migrations and creates all the tables. You only need t
 ### 1) Formål (hvad har du/I brugt værktøjet til)
 
 * Hjælp til Styling i CSS
-* Hjælp til HTML
+* Hjælp til HTML til frontend 
 
 ### 2) Arbejdsfase (hvornår i arbejdsprocessen har du/I brugt GAI)
 
